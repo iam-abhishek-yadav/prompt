@@ -79,7 +79,7 @@ const Form: React.FC<FormProps> = ({
 						disabled={submitting}
 						className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white'>
 						{submitting
-							? `${type === 'create' ? 'Creating' : 'Editing'}...`
+							? `${type === 'Create' ? 'Creating' : 'Editing'}...`
 							: type}
 					</button>
 				</div>

@@ -1,5 +1,5 @@
 import '@styles/globals.css';
-
+import { ReactNode } from 'react';
 import Nav from '@components/Nav';
 import Provider from '@components/Provider';
 
@@ -8,7 +8,7 @@ export const metadata = {
 	description: 'Discover & Share AI Prompts',
 };
 
-const RootLayout = ({ children }) => (
+const RootLayout = ({ children }: { children: ReactNode }) => (
 	<html lang='en'>
 		<body>
 			<Provider>

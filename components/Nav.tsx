@@ -14,6 +14,7 @@ const Nav = () => {
 	useEffect(() => {
 		(async () => {
 			const res = await getProviders();
+			// @ts-ignore
 			setProviders(res);
 		})();
 	}, []);
@@ -33,7 +34,6 @@ const Nav = () => {
 				<p className='logo_text'>Promptopia</p>
 			</Link>
 
-			{/* Desktop Navigation */}
 			<div className='sm:flex hidden'>
 				{session?.user ? (
 					<div className='flex gap-3 md:gap-5'>
@@ -45,13 +45,13 @@ const Nav = () => {
 
 						<button
 							type='button'
-							onClick={signOut}
+							onClick={() => signOut}
 							className='outline_btn'>
 							Sign Out
 						</button>
 
 						<Link href='/profile'>
-							<Image
+							<Image // @ts-ignore
 								src={session?.user.image}
 								width={37}
 								height={37}
@@ -65,10 +65,11 @@ const Nav = () => {
 						{providers &&
 							Object.values(providers).map((provider) => (
 								<button
-									type='button'
-									key={provider.name}
+									type='button' // @ts-ignore
+									key={provider?.name}
 									onClick={() => {
-										signIn(provider.id);
+										// @ts-ignore
+										signIn(provider?.id);
 									}}
 									className='black_btn'>
 									Sign in
@@ -78,11 +79,10 @@ const Nav = () => {
 				)}
 			</div>
 
-			{/* Mobile Navigation */}
 			<div className='sm:hidden flex relative'>
 				{session?.user ? (
 					<div className='flex'>
-						<Image
+						<Image // @ts-ignore
 							src={session?.user.image}
 							width={37}
 							height={37}
@@ -122,10 +122,11 @@ const Nav = () => {
 						{providers &&
 							Object.values(providers).map((provider) => (
 								<button
-									type='button'
-									key={provider.name}
+									type='button' // @ts-ignore
+									key={provider?.name}
 									onClick={() => {
-										signIn(provider.id);
+										// @ts-ignore
+										signIn(provider?.id);
 									}}
 									className='black_btn'>
 									Sign in
