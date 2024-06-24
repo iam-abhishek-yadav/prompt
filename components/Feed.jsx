@@ -4,26 +4,12 @@ import { useState, useEffect } from 'react';
 
 import PromptCard from './PromptCard';
 
-interface PromptCardListProps {
-	data: {
-		_id: string;
-		creator: {
-			username: string;
-		};
-		tag: string;
-		prompt: string;
-	}[];
-	handleTagClick: (tagName: string) => void;
-}
-
-const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
+const PromptCardList = ({ data, handleTagClick }) => {
 	return (
 		<div className='mt-16 prompt_layout'>
 			{data.map((post) => (
-				// @ts-ignore
 				<PromptCard
 					key={post._id}
-					// @ts-ignore
 					post={post}
 					handleTagClick={handleTagClick}
 				/>
@@ -35,7 +21,6 @@ const PromptCardList = ({ data, handleTagClick }: PromptCardListProps) => {
 const Feed = () => {
 	const [allPosts, setAllPosts] = useState([]);
 
-	// Search states
 	const [searchText, setSearchText] = useState('');
 	const [searchTimeout, setSearchTimeout] = useState(null);
 	const [searchedResults, setSearchedResults] = useState([]);
@@ -51,26 +36,21 @@ const Feed = () => {
 		fetchPosts();
 	}, []);
 
-	const filterPrompts = (searchtext: string) => {
+	const filterPrompts = (searchtext) => {
 		const regex = new RegExp(searchtext, 'i');
 		return allPosts.filter(
 			(item) =>
-				// @ts-ignore
 				regex.test(item.creator.username) ||
-				// @ts-ignore
 				regex.test(item.tag) ||
-				// @ts-ignore
 				regex.test(item.prompt)
 		);
 	};
 
-	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (searchTimeout) {
-			clearTimeout(searchTimeout);
-		}
+	const handleSearchChange = (e) => {
+		clearTimeout(searchTimeout);
 		setSearchText(e.target.value);
+
 		setSearchTimeout(
-			// @ts-ignore
 			setTimeout(() => {
 				const searchResult = filterPrompts(e.target.value);
 				setSearchedResults(searchResult);
@@ -78,7 +58,7 @@ const Feed = () => {
 		);
 	};
 
-	const handleTagClick = (tagName: string) => {
+	const handleTagClick = (tagName) => {
 		setSearchText(tagName);
 
 		const searchResult = filterPrompts(tagName);

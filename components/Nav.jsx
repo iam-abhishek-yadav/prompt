@@ -14,7 +14,6 @@ const Nav = () => {
 	useEffect(() => {
 		(async () => {
 			const res = await getProviders();
-			// @ts-ignore
 			setProviders(res);
 		})();
 	}, []);
@@ -45,13 +44,13 @@ const Nav = () => {
 
 						<button
 							type='button'
-							onClick={() => signOut}
+							onClick={signOut}
 							className='outline_btn'>
 							Sign Out
 						</button>
 
 						<Link href='/profile'>
-							<Image // @ts-ignore
+							<Image
 								src={session?.user.image}
 								width={37}
 								height={37}
@@ -65,11 +64,10 @@ const Nav = () => {
 						{providers &&
 							Object.values(providers).map((provider) => (
 								<button
-									type='button' // @ts-ignore
-									key={provider?.name}
+									type='button'
+									key={provider.name}
 									onClick={() => {
-										// @ts-ignore
-										signIn(provider?.id);
+										signIn(provider.id);
 									}}
 									className='black_btn'>
 									Sign in
@@ -82,7 +80,7 @@ const Nav = () => {
 			<div className='sm:hidden flex relative'>
 				{session?.user ? (
 					<div className='flex'>
-						<Image // @ts-ignore
+						<Image
 							src={session?.user.image}
 							width={37}
 							height={37}
@@ -122,11 +120,10 @@ const Nav = () => {
 						{providers &&
 							Object.values(providers).map((provider) => (
 								<button
-									type='button' // @ts-ignore
-									key={provider?.name}
+									type='button'
+									key={provider.name}
 									onClick={() => {
-										// @ts-ignore
-										signIn(provider?.id);
+										signIn(provider.id);
 									}}
 									className='black_btn'>
 									Sign in

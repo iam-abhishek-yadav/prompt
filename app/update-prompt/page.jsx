@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import Form from '@components/Form';
 
-const UpdatePrompt = () => {
+const Update = () => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const promptId = searchParams.get('id');
@@ -27,7 +27,7 @@ const UpdatePrompt = () => {
 		if (promptId) getPromptDetails();
 	}, [promptId]);
 
-	const updatePrompt = async (e: React.FormEvent<HTMLFormElement>) => {
+	const updatePrompt = async (e) => {
 		e.preventDefault();
 		setIsSubmitting(true);
 
@@ -61,6 +61,12 @@ const UpdatePrompt = () => {
 			handleSubmit={updatePrompt}
 		/>
 	);
+};
+
+const UpdatePrompt = () => {
+	<Suspense>
+		<Update />
+	</Suspense>;
 };
 
 export default UpdatePrompt;
