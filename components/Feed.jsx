@@ -26,10 +26,19 @@ const Feed = () => {
 	const [searchedResults, setSearchedResults] = useState([]);
 
 	const fetchPosts = async () => {
-		const response = await fetch('/api/prompt');
+		const response = await fetch('/api/prompt', {
+			headers: {
+				'Cache-Control': 'public, max-age=0, must-revalidate',
+				Pragma: 'no-cache',
+				Expires: '0',
+			},
+		});
+
 		const data = await response.json();
 
 		setAllPosts(data);
+		const revalidateIntervalSeconds = 10;
+		setTimeout(fetchPosts, revalidateIntervalSeconds * 1000);
 	};
 
 	useEffect(() => {

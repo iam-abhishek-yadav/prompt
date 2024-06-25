@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Starting the Application
 
-## Getting Started
+- **Run a MongoDB Container**
 
-First, run the development server:
+  ```sh
+  docker run -d -p 27017:27017 mongo
+  ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Create a Secret**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  ```sh
+  openssl rand --base64 32
+  ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Create OAuth Secret**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  - `Create a New Project:` Go to the [Google Cloud Console](https://console.cloud.google.com/).
+  - `Configure OAuth Consent Screen`
 
-## Learn More
+    - **Navigate to API and Services**: Go to `API and Services` and then click on `OAuth consent screen`.
+    - **Create OAuth Consent Screen**: Select the appropriate user type and click `Create`.
+    - **Fill Out the Consent Screen Information**:
+      - **App name**: Enter your app name.
+      - **User support email**: Enter a user support email.
+      - **Developer contact information**: Enter the developer's contact information.
+      - Click `Save and Continue`.
 
-To learn more about Next.js, take a look at the following resources:
+  - `Create OAuth Credentials`
+    - **Go to Credentials**:
+      - In the left-hand menu under `API and Services`, click on `Credentials`.
+    - **Create Credentials**:
+      - Click on `Create credentials` and select `OAuth 2.0 Client IDs`.
+    - **Add OAuth Client Details**:
+      - **Name**: Enter a name for your OAuth client.
+      - **Authorized JavaScript Origins**:
+        - Add your application's origin. Example: `http://localhost:3000`.
+      - **Authorized Redirect URIs**:
+        - Add the redirect URIs where Google will send responses to your authentication requests. Example: `http://localhost:3000/api/auth/callback/google`.
+    - **Save**:
+      - Click `Create`. You will be provided with a `Client ID` and `Client Secret`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Configure Environment Variables**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  - **Create a `.env` file**:
+    In the root directory of your Next.js application, create a file named `.env`.
 
-## Deploy on Vercel
+  - **Add the following environment variables**:
+    ```env
+    GOOGLE_CLIENT_ID=your-client-id
+    GOOGLE_CLIENT_SECRET=your-client-secret
+    MONGODB_URI="mongodb://localhost:27017/mydatabase"
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_URL_INTERNAL=http://localhost:3000
+    NEXTAUTH_SECRET=your-generated-secret
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Start the Application**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  ```sh
+  npm install
+  ```
+
+  ```sh
+  npm run dev
+  ```
